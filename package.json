@@ -1,0 +1,19 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "Generate a Html displaying a dev team",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lewy192/Team-Profile-Generator.git"
+  },
+  "author": "Lewis Hill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lewy192/Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/lewy192/Team-Profile-Generator#readme"
+}
