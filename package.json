@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/lewy192/Team-Profile-Generator/issues"
   },
-  "homepage": "https://github.com/lewy192/Team-Profile-Generator#readme"
+  "homepage": "https://github.com/lewy192/Team-Profile-Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
 }
