@@ -56,5 +56,19 @@ describe("Employee Class", () => {
                 expect(resultIdMethod).toStrictEqual(id);
             });
         });
+        describe("getRole Method", () => {
+            it("should return the instance of the Intern class that it is called on", () => {
+                //Arrange
+                const id = 2;
+                const email = "e.g@email.com";
+                const name = "testing";
+
+                const testEmp = new Employee(id, email, name);
+                //Act
+                const resultGetRole = testEmp.getRole();
+                //Assert
+                expect(resultGetRole).toEqual(testEmp);
+            });
+        });
     });
 });

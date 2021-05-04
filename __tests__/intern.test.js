@@ -78,6 +78,20 @@ describe("Intern Class Test", () => {
                     expect(resultSchoolMethod).toStrictEqual(school);
                 });
             });
+            describe("getRole Method", () => {
+                it("should return the instance of the Intern class that it is called on", () => {
+                    //Arrange
+                    const id = 2;
+                    const email = "e.g@email.com";
+                    const name = "testing";
+                    const school = "school";
+                    const testIntern = new Intern(id, email, name, school);
+                    //Act
+                    const resultGetRole = testIntern.getRole();
+                    //Assert
+                    expect(resultGetRole).toEqual(testIntern);
+                });
+            });
         });
     });
 });

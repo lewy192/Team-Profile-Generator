@@ -79,5 +79,19 @@ describe("Engineer Class Tests", () => {
                 expect(resultIdMethod).toStrictEqual(githubUrl);
             });
         });
+        describe("getRole Method", () => {
+            it("should return the instance of the Intern class that it is called on", () => {
+                //Arrange
+                const id = 2;
+                const email = "e.g@email.com";
+                const name = "testing";
+                const github = "github";
+                const testEngi = new Engineer(id, email, name, github);
+                //Act
+                const resultGetRole = testEngi.getRole();
+                //Assert
+                expect(resultGetRole).toEqual(testEngi);
+            });
+        });
     });
 });
