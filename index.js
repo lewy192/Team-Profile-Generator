@@ -123,7 +123,7 @@ newTeamMember = () => {
                         });
                     break;
                 case "Complete Team":
-                    buildTeam([manager, ...engis, ...interns]);
+                    buildTeam([theManager, ...engis, ...interns]);
                     break;
                 default:
                     newTeamMember();
@@ -136,64 +136,88 @@ buildTeam = (teamArray) => {
     // build DA TEAM
     const completedTeamHtmlCards = [];
 
-    teamArray.forEach(
-        (employee) => {
-            const cardStart = `
+    teamArray.forEach((employee) => {
+        const cardStart = `
         <div class="card">
         <header class="name role">
             <h1 class="name">${employee.getName()}</h1>
             <h1 class="role">${employee.constructor.name}</h1>
         </header>
         <div class="content">
-            <p class="employee-id">ID:${engineer.getId()}</p>
-            <p class="emplyee-email">Email:<a href="mailto:${engineer.getEmail()}" class="email">${engineer.getEmail()}</a></p>
+            <p class="employee-id">ID:${employee.getId()}</p>
+            <p class="emplyee-email">Email:<a href="mailto:${employee.getEmail()}" class="email">${employee.getEmail()}</a></p>
             `;
-            let cardEnd = ``;
-            switch (employee.constructor.name) {
-                case "Intern":
-                    cardEnd = `
+        let cardEnd = ``;
+        switch (employee.constructor.name) {
+            case "Intern":
+                cardEnd = `
                     <p class="employee-info">School:${employee.getSchool()}</p>
                 </div>
             </div>
                 `;
-                    break;
-                case "Engineer":
-                    cardEnd = `
-                    <p class="employee-info">Github:<a href="${employee.getGithub()}" class="github">${
-                        employee.github
-                    }</a></p>
+                break;
+            case "Engineer":
+                cardEnd = `
+                    <p class="employee-info">Github:<a href="${employee.getGithub()}" class="github" target="_blank">${
+                    employee.github
+                }</a></p>
                 </div>
             </div>
             `;
-                    break;
-                case "Manager":
-                    cardEnd = `<p class="employee-info">Office Number:${employee.getOffice()}</p>
+                break;
+            case "Manager":
+                cardEnd = `<p class="employee-info">Office Number:${employee.getOffice()}</p>
                 </div>
             </div>
             `;
-                default:
-                    cardEnd = `  
+            default:
+                cardEnd = `  
                     </div>
                 </div>
                 `;
-            }
-            const completedCard = cardStart + cardEnd;
-            completedTeamHtmlCards.push(completedCard);
         }
-        //call html builder here
-    );
-
-    // call generate html function
-    //   generate innterHTML for every memeber of the teamArray
-    //      add all cards to base html
-    //          write html file
+        const completedCard = cardStart + cardEnd;
+        completedTeamHtmlCards.push(completedCard);
+    });
+    htmlFileCreator(completedTeamHtmlCards);
 };
 
-// TODO: break ALL case
+htmlFileCreator = (cardArray) => {
+    let basePageHtmlStart = `
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="stylesheet" href="./dist/css/style.css"/>
+            <title>Team Roster</title>
+        </head>
+        <body>
+            <header class="header">My Team</header>
+            <div class="card-container">
+
+    `;
+
+    const basePageHtmlEnd = `            
+        </div>
+    </body>
+</html>`;
+
+    cardArray.forEach((card) => {
+        basePageHtmlStart += card;
+    });
+    basePageHtmlStart += basePageHtmlEnd;
+
+    fs.writeFile("./generatedIndex.html", basePageHtmlStart, (err) => {
+        if (err) throw err;
+        console.log("Your file has been saved as: generatedIndex.html.");
+    });
+};
 
 init = () => {
     createNewTeam();
 };
 const emp = new Employee(1, 2, 3);
-// init();
-console.log(typeof emp.constructor.name);
+init();
+// console.log(typeof emp.constructor.name);
