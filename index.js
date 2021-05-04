@@ -15,8 +15,7 @@ validateInput = (input) => {
 
 const engis = [];
 const interns = [];
-
-const theTeam = [0, ...engis, ...interns];
+let theManager = "";
 
 // when the program starts it creates a new manager object and assigns its properties.
 
@@ -59,7 +58,7 @@ createNewTeam = () => {
                 answers.employeesEmail,
                 answers.officeNumber
             );
-            theTeam[0] = bossMan;
+            theManager = bossMan;
             newTeamMember();
         });
 };
@@ -75,12 +74,13 @@ newTeamMember = () => {
             },
         ])
         .then((answer) => {
-            const choice = answer.managerChoice;
+            const choice = answer.managersChoice;
+            console.log(answer);
             switch (choice) {
                 case "Engineer":
                     inquirer
                         .prompt([
-                            employeeQuestions,
+                            ...employeeQuestions,
                             {
                                 message:
                                     "What is the Engineers Github Username?",
@@ -103,7 +103,7 @@ newTeamMember = () => {
                 case "Intern":
                     inquirer
                         .prompt([
-                            employeeQuestions,
+                            ...employeeQuestions,
                             {
                                 message: "What school did the intern go to?",
                                 type: "input",
@@ -123,7 +123,7 @@ newTeamMember = () => {
                         });
                     break;
                 case "Complete Team":
-                    buildTeam(theTeam);
+                    buildTeam([manager, ...engis, ...interns]);
                     break;
                 default:
                     newTeamMember();
@@ -134,7 +134,66 @@ newTeamMember = () => {
 
 buildTeam = (teamArray) => {
     // build DA TEAM
+    const completedTeamHtmlCards = [];
+
+    teamArray.forEach(
+        (employee) => {
+            const cardStart = `
+        <div class="card">
+        <header class="name role">
+            <h1 class="name">${employee.getName()}</h1>
+            <h1 class="role">${employee.constructor.name}</h1>
+        </header>
+        <div class="content">
+            <p class="employee-id">ID:${engineer.getId()}</p>
+            <p class="emplyee-email">Email:<a href="mailto:${engineer.getEmail()}" class="email">${engineer.getEmail()}</a></p>
+            `;
+            let cardEnd = ``;
+            switch (employee.constructor.name) {
+                case "Intern":
+                    cardEnd = `
+                    <p class="employee-info">School:${employee.getSchool()}</p>
+                </div>
+            </div>
+                `;
+                    break;
+                case "Engineer":
+                    cardEnd = `
+                    <p class="employee-info">Github:<a href="${employee.getGithub()}" class="github">${
+                        employee.github
+                    }</a></p>
+                </div>
+            </div>
+            `;
+                    break;
+                case "Manager":
+                    cardEnd = `<p class="employee-info">Office Number:${employee.getOffice()}</p>
+                </div>
+            </div>
+            `;
+                default:
+                    cardEnd = `  
+                    </div>
+                </div>
+                `;
+            }
+            const completedCard = cardStart + cardEnd;
+            completedTeamHtmlCards.push(completedCard);
+        }
+        //call html builder here
+    );
+
     // call generate html function
+    //   generate innterHTML for every memeber of the teamArray
+    //      add all cards to base html
+    //          write html file
 };
 
 // TODO: break ALL case
+
+init = () => {
+    createNewTeam();
+};
+const emp = new Employee(1, 2, 3);
+// init();
+console.log(typeof emp.constructor.name);
