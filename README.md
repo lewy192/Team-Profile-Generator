@@ -14,6 +14,10 @@ This project solves the following problem Having to manually create the aforemen
 
 From this project I learnt I shouldn't try to assign instance properties asynchronously.
 
+## Video
+
+[Team Profile Generator](https://youtu.be/Mg9G2qbIxOs)
+
 ## Contents
 
 -   [Installation](#installation)
