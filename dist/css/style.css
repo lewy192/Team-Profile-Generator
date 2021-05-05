@@ -32,6 +32,8 @@ body {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     width: 25%;
     height: auto;
     border: 1px solid var(--card-border-grey);
@@ -47,7 +49,9 @@ body {
     filter: invert(100%);
 }
 .content p {
+    word-wrap: break-word;
     padding: 1rem 1rem 1rem 0.25rem;
+    display: block;
 }
 .content {
     margin: 2rem;

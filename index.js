@@ -73,7 +73,6 @@ newTeamMember = () => {
         ])
         .then((answer) => {
             const choice = answer.managersChoice;
-            console.log(answer);
             switch (choice) {
                 case "Engineer":
                     inquirer
@@ -139,7 +138,6 @@ svgCreator = (typeOfClass) => {};
 buildTeam = (teamArray) => {
     // build DA TEAM
     const completedTeamHtmlCards = [];
-    console.log(teamArray);
 
     teamArray.forEach((employee) => {
         let cardEnd = ``;
@@ -207,7 +205,7 @@ htmlFileCreator = (cardArray) => {
         </head>
         <body>
             <header class="header">
-            <h1>My Team</>
+            <h1>My Team</h1>
             </header>
             <div class="card-container">
 
