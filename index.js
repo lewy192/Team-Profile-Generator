@@ -1,9 +1,7 @@
 const inquirer = require("inquirer");
-const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Manager = require("./lib/manager");
 const Intern = require("./lib/intern");
-const Choice = require("inquirer/lib/objects/choice");
 const fs = require("fs");
 validateInput = (input) => {
     // input ? true : "dont leave me blank :(";
@@ -54,8 +52,8 @@ createNewTeam = () => {
         .then((answers) => {
             const bossMan = new Manager(
                 answers.employeesId,
-                answers.employeesName,
                 answers.employeesEmail,
+                answers.employeesName,
                 answers.officeNumber
             );
             theManager = bossMan;
@@ -92,8 +90,8 @@ newTeamMember = () => {
                         .then((answers) => {
                             const newEngineer = new Engineer(
                                 answers.employeesId,
-                                answers.employeesName,
                                 answers.employeesEmail,
+                                answers.employeesName,
                                 answers.employeesGithub
                             );
                             engis.push(newEngineer);
@@ -114,8 +112,8 @@ newTeamMember = () => {
                         .then((answers) => {
                             const newIntern = new Intern(
                                 answers.employeesId,
-                                answers.employeesName,
                                 answers.employeesEmail,
+                                answers.employeesName,
                                 answers.internSchool
                             );
                             interns.push(newIntern);
@@ -132,29 +130,30 @@ newTeamMember = () => {
         });
 };
 
+capitaliseString = (string) => {
+    return string[0].toUpperCase() + string.slice(1);
+};
+
+svgCreator = (typeOfClass) => {};
+
 buildTeam = (teamArray) => {
     // build DA TEAM
     const completedTeamHtmlCards = [];
+    console.log(teamArray);
 
     teamArray.forEach((employee) => {
-        const cardStart = `
-        <div class="card">
-        <header class="name role">
-            <h1 class="name">${employee.getName()}</h1>
-            <h1 class="role">${employee.constructor.name}</h1>
-        </header>
-        <div class="content">
-            <p class="employee-id">ID:${employee.getId()}</p>
-            <p class="emplyee-email">Email:<a href="mailto:${employee.getEmail()}" class="email">${employee.getEmail()}</a></p>
-            `;
         let cardEnd = ``;
+        let svgImg = ``;
         switch (employee.constructor.name) {
             case "Intern":
                 cardEnd = `
-                    <p class="employee-info">School:${employee.getSchool()}</p>
+                    <p class="employee-info">School:${capitaliseString(
+                        employee.getSchool()
+                    )}</p>
                 </div>
             </div>
                 `;
+                svgImg = `<img src="./icons/graduation.svg" alt="Icon of a graduate" class="icon">`;
                 break;
             case "Engineer":
                 cardEnd = `
@@ -164,18 +163,31 @@ buildTeam = (teamArray) => {
                 </div>
             </div>
             `;
+                svgImg = `<img src="./icons/eyeglasses.svg" alt="Icon of a graduate" class="icon">`;
                 break;
             case "Manager":
                 cardEnd = `<p class="employee-info">Office Number:${employee.getOffice()}</p>
                 </div>
             </div>
             `;
+                svgImg = `<img src="./icons/coffee.svg" alt="Icon of a graduate" class="icon">`;
+                break;
             default:
                 cardEnd = `  
                     </div>
                 </div>
                 `;
         }
+        const cardStart = `
+        <div class="card">
+        <header class="card-header">
+            <h1 class="name">${capitaliseString(employee.getName())}</h1>
+            <h1 class="role">${svgImg}${employee.constructor.name}</h1>
+        </header>
+        <div class="content">
+            <p class="employee-id">ID:${employee.getId()}</p>
+            <p class="emplyee-email">Email:<a href="mailto:${employee.getEmail()}" class="email">${employee.getEmail()}</a></p>
+            `;
         const completedCard = cardStart + cardEnd;
         completedTeamHtmlCards.push(completedCard);
     });
@@ -194,7 +206,9 @@ htmlFileCreator = (cardArray) => {
             <title>Team Roster</title>
         </head>
         <body>
-            <header class="header">My Team</header>
+            <header class="header">
+            <h1>My Team</>
+            </header>
             <div class="card-container">
 
     `;
@@ -218,6 +232,4 @@ htmlFileCreator = (cardArray) => {
 init = () => {
     createNewTeam();
 };
-const emp = new Employee(1, 2, 3);
 init();
-// console.log(typeof emp.constructor.name);
